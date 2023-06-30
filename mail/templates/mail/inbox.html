@@ -1,0 +1,51 @@
+{% extends "mail/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h3 id="header-top">{{ request.user.email }}</h3>
+
+    <style>
+        #header-top {
+            height: 60px;
+            border-radius: 7px;
+            background-color: aquamarine;
+            color: black;
+            margin: 15px 0;
+            padding: 10px;
+        }
+    </style>
+
+    <button class="btn btn-sm btn-outline-info" id="inbox">Inbox</button>
+    <button class="btn btn-sm btn-outline-info" id="compose">Compose</button>
+    <button class="btn btn-sm btn-outline-info" id="sent">Sent</button>
+    <button class="btn btn-sm btn-outline-info" id="archived">Archived</button>
+    <a class="btn btn-sm btn-outline-info" href="{% url 'logout' %}">Log Out</a>
+    <hr>
+
+    <div id="emails-view">
+    </div>
+
+    <div id="email-detail-view">
+    </div>
+
+    <div id="compose-view">
+        <h4>New Email</h4>
+        <form id="compose-form">
+            <div class="form-group">
+                From: <input disabled class="form-control" value="{{ request.user.email }}">
+            </div>
+            <div class="form-group">
+                To: <input id="compose-recipients" class="form-control">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="compose-subject" placeholder="Subject">
+            </div>
+            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}
